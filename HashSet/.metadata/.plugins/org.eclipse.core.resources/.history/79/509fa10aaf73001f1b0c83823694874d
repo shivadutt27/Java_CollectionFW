@@ -1,0 +1,69 @@
+package dutTextGame;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class TestLocation {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		String data = """
+				road,at the end of the road, W: hill, E:well house,S:valley,N:forest
+hill,on top of hill with a view in all directions,N:forest, E:road
+well house,inside a well house for a small spring,W:road,N:lake,S:stream
+valley,in a forest valley beside a tumbling stream,N:road,W:hill,E:stream
+forest,at the edge of a thick dark forest,S:road,E:lake
+lake,by an alpine lake surrounded by wildflowers,W:forest,S:well house
+stream,near a stream with a rocky bed,W:valley, N:well house
+				""";
+
+		
+		List<String> dataList = new ArrayList<>();
+		String[] newData = data.trim().split("\n");
+		dataList.addAll(Arrays.asList(newData));
+		
+		System.out.println(dataList.get(0));
+		
+		List<Location> locations = new ArrayList<>();
+		
+		
+		Map<String,String> position = new HashMap<>();
+		
+		String dataStr = dataList.get(0);
+		
+		String[] datArr = dataStr.split(",", 3);
+		
+		System.out.println(datArr[2]);
+		
+		for(String d: dataList) {
+			String[] dArr = d.split(",",3);
+			String pos = dArr[2];
+			String[] posArr = pos.split(",");
+			System.out.println("poasArr is :"+Arrays.toString(posArr));
+			Map<String,String> map = new HashMap<>();
+			int i=posArr.length;
+			while(i>0) {
+				map.put(posArr[0], posArr[1]);
+				i--;
+			}
+			
+			locations.add(new Location(dArr[0],dArr[1],map));
+		}
+		
+		System.out.println("============================");
+		
+		locations.forEach(System.out::println);
+		
+//		for(int i=0; i<dataList.size(); i++) {
+//			String dataStr = dataList.get(i);
+//			Location location = new Location(dataStr.split(0, dataStr.indexOf(","), ));
+//			
+//		}
+		
+	}
+
+}

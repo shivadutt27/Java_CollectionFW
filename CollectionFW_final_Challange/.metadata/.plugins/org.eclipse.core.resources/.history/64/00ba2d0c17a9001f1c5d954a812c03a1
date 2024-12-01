@@ -1,0 +1,17 @@
+package duttStore.collection.challange;
+
+public class TestInventory {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		InventoryItem brcc = new InventoryItem("DR1","DarkRoast","BRCC",Category.COFFEE,4.50,5);
+		System.out.println(brcc);
+		brcc.reserveItem(1);
+		System.out.println(brcc);
+		brcc.releaseItem();
+		System.out.println(brcc);
+		brcc.sellItem();
+		System.out.println(brcc);
+	}
+
+}

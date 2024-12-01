@@ -1,0 +1,5 @@
+package dev.duttech.card;
+
+public class Card {
+
+}

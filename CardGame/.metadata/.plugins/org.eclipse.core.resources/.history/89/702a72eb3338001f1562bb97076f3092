@@ -1,0 +1,73 @@
+package dev.duttech.card;
+
+/*
+ * This class will help to create the deck of cards.
+ * Attributes or Member variables of the class is: 
+ * 		Suits (Heart, Spade, Club, Diamond)
+ * 		Face(Ace, King, Queen, Jack, number from 2 to 10)
+ *  	Rank
+ * */
+
+
+enum Suit{
+	
+	HEART, SPADE, CLUB, DIAMOND;
+	
+	public char getImage() {
+		switch(Suit.valueOf(name())) {
+		case HEART:
+			return 9829;
+		case SPADE:
+			return 9824;
+		case CLUB:
+			return 9827;
+		case DIAMOND:
+			return 9830;
+		default:
+			return 223;
+		}
+	}
+}
+
+public class Card {
+	
+	
+	
+	private Suit suit;
+	private String face;
+	private int rank;
+	
+	public Card(Suit suit, String face) {
+		this.suit = suit;
+		switch(face.toLowerCase()) {
+		case ("ace"):
+			this.face = "A";
+			this.rank = 1;
+			break;
+		case ("jack"):
+			this.face = "J";
+			this.rank = 11;
+			break;
+		case ("queen"):
+			this.face = "Q";
+			this.rank = 12;
+			break;
+		case ("king"):
+			this.face = "K";
+			this.rank = 13;
+			break;
+		default:
+			this.face = face;
+			this.rank = Integer.parseInt(face);
+			break;
+		}
+	}
+	
+	public Card[] createDeck() {
+		
+		Card[] standardDeck = new Card[52];
+		
+		
+	}
+
+}

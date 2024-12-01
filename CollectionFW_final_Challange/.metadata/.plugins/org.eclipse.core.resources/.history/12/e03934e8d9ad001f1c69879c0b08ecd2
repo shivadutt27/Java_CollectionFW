@@ -1,0 +1,94 @@
+package duttStore.collection.challange;
+
+import java.time.Instant;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+public class Store {
+	
+	private Map<String,InventoryItem> inventory;
+	
+	public static void main(String[] args) {}
+	
+	 class Cart{
+		
+		enum Type{VIRTUAL,PHYSICAL}
+		
+		private int id = 0;
+		private Map<String,Integer> products;
+		private Date date;
+		private Type type;
+		
+		public Cart(Type type) {
+			this.type = type;
+			this.products = new HashMap<>();
+			this.date = Date.from(Instant.now());
+			this.id+=1;
+		}
+		
+		public void addItem(InventoryItem item, int qty) {
+			if(item.reserveItem(qty)) {
+				products.merge(item.getProduct().sku(),qty,(k,v)->k+v);
+			}
+		}
+		
+		public void removeItem(InventoryItem item, int qty) {
+			// In Given method we are removing the specified amount of items from the cart
+			// If specified quantity > current quantity in cart
+				//that means remove all the items in the cart and release all the items from inventory
+			// If specified qty < current cart qty
+				//Remove the given qty and release the items of same given qty
+			
+			//Lets find out how many items are present in the cart
+			Integer current = this.products.get(item.getProduct().sku());
+			//System.out.println("%n current qty is: %s".formatted(current));
+			
+			if(current<=qty) {
+				products.remove(item.getProduct().sku());
+			}else {
+				products.put(item.getProduct().sku(), current-qty);
+			}
+			System.out.println("Before Release: "+item.getQtyReserved());
+			item.releaseItem(Math.min(qty, current));
+			System.out.println("After Release: "+item.getQtyReserved());
+		}
+		
+		public void printSalesSlip(Map<String,InventoryItem> inventory) {
+			/*
+			 * Calculate the price of all the items present in cart and print it
+			 * Take a local variable total initialize it with value 0
+			 * Iterate over each product in products map
+			 * adding the price to total 
+			 * 
+			 * */
+			int total = 0;
+			System.out.println("-----Welcome to Dutta Traders ---------------");
+			Set<Entry<String,Integer>> productSet = products.entrySet(); // we get the set of entry of key-value elements of products map
+			
+			//Iterate over the elements of set
+			//lets do the index based iteration
+			for(Map.Entry<String,Integer> product: productSet) {
+				// Find out the price of single item 
+				// Using key (String) as sku, we find the item
+				InventoryItem item = inventory.get(product.getKey()); // Here we get the item from its sku
+				double price = item.getSalesPrice(); // Here we have the price of that item, now we want qty of those items
+				int totalQty = product.getValue(); // Here we have the total quantity of item
+				double totalPrice = price*totalQty; // price of a single item * total qty of items
+				total+=totalPrice;
+			}
+			System.out.println("Total Price in your cart is: "+total);
+		}
+		
+
+		@Override
+		public String toString() {
+			return "Cart [id=" + id + ", products=" + products + ", date=" + date + ", type=" + type + "]";
+		}
+		
+		
+	}
+
+}

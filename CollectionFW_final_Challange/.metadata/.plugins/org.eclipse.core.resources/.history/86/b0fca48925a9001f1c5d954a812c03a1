@@ -1,0 +1,40 @@
+package duttStore.collection.challange;
+
+import java.time.Instant;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Store {
+	
+	class Cart{
+		
+		enum Type{VIRTUAL,PHYSICAL}
+		
+		private int id = 0;
+		private Map<String,Product> products;
+		private Date date;
+		private Type type;
+		
+		public Cart(Type type) {
+			this.type = type;
+			this.products = new HashMap<>();
+			this.date = Date.from(Instant.now());
+			this.id+=1;
+		}
+		
+		public void addItem(Product product) {
+			products.put(product.sku(), product);
+		}
+		
+		public void removeItem(Product product, int qty) {
+			Collection<Product> productList= products.values();
+			
+			for(Product p: productList) {
+				System.out.println(p);
+			}
+		}
+	}
+
+}

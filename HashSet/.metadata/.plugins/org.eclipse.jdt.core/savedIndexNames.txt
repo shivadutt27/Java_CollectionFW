@@ -1,0 +1,7 @@
+INDEX VERSION 1.134+D:\Tim_Java\CollectionFramework\HashSet\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+1739282044.index
+1578827310.index
+3733154015.index
+26764960.index
+3825379179.index

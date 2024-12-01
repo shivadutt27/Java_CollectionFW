@@ -1,0 +1,28 @@
+package duttStore.collection.challange;
+
+import duttStore.collection.challange.Store.Cart;
+import duttStore.collection.challange.Store.Cart.Type;
+
+public class TestInventory {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Product darkRoast = new Product("DR-1","Dark Roast","BRCC",new Category("Coffee"));
+		Product blackMug = new Product("mug-blk-1","black mug","BRCC",new Category("Merchandise"));
+		Product afTag = new Product("af-f7-1","F7 Tag","Air Force",new Category("Merchandise"));
+		
+		InventoryItem drCoffee = new InventoryItem(darkRoast,10,4.50);
+		InventoryItem mugs = new InventoryItem(blackMug,5,10.25);
+		
+		Cart cart = new Store().new Cart(Type.PHYSICAL);
+		//cart.addItem(mugs, 2);
+		cart.addItem(drCoffee, 3);
+		cart.removeItem(drCoffee, 1);
+		System.out.println(cart);
+		
+		
+		
+	}
+
+}

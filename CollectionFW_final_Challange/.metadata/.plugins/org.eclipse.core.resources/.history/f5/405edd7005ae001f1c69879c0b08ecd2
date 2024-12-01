@@ -1,0 +1,134 @@
+package duttStore.collection.challange;
+
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.NavigableMap;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeMap;
+
+enum Type{VIRTUAL,PHYSICAL}
+
+class Cart{
+	
+	
+	
+	private int id = 0;
+	private Map<String,Integer> products;
+	private Date date;
+	private Type type;
+	
+	public Cart(Type type) {
+		this.type = type;
+		this.products = new HashMap<>();
+		this.date = Date.from(Instant.now());
+		this.id+=1;
+	}
+	
+	public void addItem(InventoryItem item, int qty) {
+		if(item.reserveItem(qty)) {
+			products.merge(item.getProduct().sku(),qty,(k,v)->k+v);
+		}
+	}
+	
+	public void removeItem(InventoryItem item, int qty) {
+		// In Given method we are removing the specified amount of items from the cart
+		// If specified quantity > current quantity in cart
+			//that means remove all the items in the cart and release all the items from inventory
+		// If specified qty < current cart qty
+			//Remove the given qty and release the items of same given qty
+		
+		//Lets find out how many items are present in the cart
+		Integer current = this.products.get(item.getProduct().sku());
+		//System.out.println("%n current qty is: %s".formatted(current));
+		
+		if(current<=qty) {
+			products.remove(item.getProduct().sku());
+		}else {
+			products.put(item.getProduct().sku(), current-qty);
+		}
+		System.out.println("Before Release: "+item.getQtyReserved());
+		item.releaseItem(Math.min(qty, current));
+		System.out.println("After Release: "+item.getQtyReserved());
+	}
+	
+	public void printSalesSlip(Map<String,InventoryItem> inventory) {
+		/*
+		 * Calculate the price of all the items present in cart and print it
+		 * Take a local variable total initialize it with value 0
+		 * Iterate over each product in products map
+		 * adding the price to total 
+		 * 
+		 * */
+		int total = 0;
+		System.out.println("-----Welcome to Dutta Traders ---------------");
+		Set<Entry<String,Integer>> productSet = products.entrySet(); // we get the set of entry of key-value elements of products map
+		
+		//Iterate over the elements of set
+		//lets do the index based iteration
+		for(Map.Entry<String,Integer> product: productSet) {
+			// Find out the price of single item 
+			// Using key (String) as sku, we find the item
+			InventoryItem item = inventory.get(product.getKey()); // Here we get the item from its sku
+			double price = item.getSalesPrice(); // Here we have the price of that item, now we want qty of those items
+			int totalQty = product.getValue(); // Here we have the total quantity of item
+			double totalPrice = price*totalQty; // price of a single item * total qty of items
+			total+=totalPrice;
+		}
+		System.out.println("Total Price in your cart is: "+total);
+	}
+	
+
+	@Override
+	public String toString() {
+		return "Cart [id=" + id + ", products=" + products + ", date=" + date + ", type=" + type + "]";
+	}
+	
+	
+}
+
+public class Store {
+	
+	private static Random randPrice = new Random();
+	private Map<String,InventoryItem> inventory;
+	private Set<Cart> carts;
+	private NavigableMap<Category, Map<String,InventoryItem>> aisleInventory = new TreeMap<>();
+	
+	public static void main(String[] args) {
+		System.out.println("InventoryList is -------");
+		Store store = new Store();
+		store.stockStore();
+		store.inventoryList();
+	}
+	
+	public void stockStore() {
+		inventory = new HashMap<>();
+		List<Product> products = new ArrayList<>(List.of(
+				new Product("A100","apple","local",new Category("Produce")),
+				new Product("B100","banana","local",new Category("Produce")),
+				new Product("P100","pear","local",new Category("Produce")),
+				new Product("L103","lemon","local",new Category("Produce")),
+				new Product("M201","milk","farm",new Category("Dairy")),
+				new Product("Y001","yogurt","farm",new Category("Dairy")),
+				new Product("C333","cheese","farm",new Category("Dairy")),
+				new Product("R777","rice chex","Nabisco",new Category("Cereal")),
+				new Product("G111","granola","Nat Valley",new Category("Cereal")),
+				new Product("BB11","ground beef","butcher",new Category("Meat")),
+				new Product("BC77","coke","coca cola",new Category("Beverage")),
+				new Product("BC88","coffee","value",new Category("Beverage")),
+				new Product("BC99","tea","herbal",new Category("Beverage"))
+				));
+		
+		products.forEach(p -> inventory.put(p.sku(), new InventoryItem(p,10,randPrice.nextDouble(1, 5.0))));
+	}
+	
+	public void inventoryList() {
+		System.out.println(inventory.values());
+	}
+
+}

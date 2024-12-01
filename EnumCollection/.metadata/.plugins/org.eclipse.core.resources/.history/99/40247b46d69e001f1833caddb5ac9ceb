@@ -1,0 +1,11 @@
+package org.enumlecture.duttech;
+
+public class Main {
+
+	enum Weekdays {MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

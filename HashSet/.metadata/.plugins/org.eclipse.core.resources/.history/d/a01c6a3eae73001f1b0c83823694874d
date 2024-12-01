@@ -1,0 +1,31 @@
+package dutTextGame;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class Location {
+
+	private String name, description;
+	private Map<String,String> map = new HashMap<>();
+	
+	public Location(String name, String description, Map<String,String> map) {
+		this.name = name;
+		this.description = description;
+		this.map = map;
+		
+	}
+	
+	@Override
+	public String toString() {
+		String finalStr = "%s,%s".formatted(name,description);
+		Set<String> keySet = map.keySet();
+		for(String k: keySet) {
+			finalStr+=","+k+":"+map.get(k);
+		}
+		return finalStr;
+		
+		
+	}
+}

@@ -1,0 +1,30 @@
+/*
+ * In Main class we are instantiating two Map implemented classes 
+ * 		->LinkedHashMap --> for purchase 
+ * 		->TreeHashMap --> for Student
+ * */
+
+
+package org.duttech.sortedMap;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.TreeMap;
+
+public class Main {
+	
+	private static Map<String,Purchase> purchases = new LinkedHashMap<>();
+	private static NavigableMap<String,Student> students = new TreeMap<>();
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	private static void addPurchase(String name, Course course, double price) {
+		
+		String existingStudent = Student
+	}
+
+}

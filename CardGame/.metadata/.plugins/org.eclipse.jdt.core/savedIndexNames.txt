@@ -1,0 +1,4 @@
+INDEX VERSION 1.134+D:\Tim_Java\CollectionFramework\CardGame\.metadata\.plugins\org.eclipse.jdt.core
+1891178618.index
+1865797976.index
+3825379179.index

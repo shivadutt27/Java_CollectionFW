@@ -1,0 +1,4 @@
+INDEX VERSION 1.134+D:\Tim_Java\CollectionFramework\HashSet\dutTextGame\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+3595293422.index
+3825379179.index

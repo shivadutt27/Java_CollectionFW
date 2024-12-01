@@ -1,0 +1,84 @@
+package duttStore.collection.challange;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+enum Category{
+	
+	DAIRY,NON_DAIRY,COFFEE,MERCHANDISE;
+	
+	private static final Map<Category,String> mappedValue = new HashMap<>();
+	
+	public static void setValue(Category category,String value) {
+		mappedValue.put(category, value);
+	}
+	
+	public static String getValue(Category category) {
+		
+		String msg = "";
+		
+		mappedValue.compute(category, (k,v) -> v== null? msg+"Category not present": msg+v);
+		
+//		List<Category> categories = new ArrayList<>(List.of(Category.values()));
+//		if(categories.contains(category)) {
+//			return mappedValue.get(category);
+//		}else {
+//			System.out.println("Category not present !!");
+//			return null;
+//		}
+		
+		return msg;
+	}
+	
+}
+
+record Product(String sku, String name, String manufacturer,Category category) {}
+
+public class InventoryItem {
+	
+	private Product product;
+	private int qtyTotal;
+	private int qtyReserved;
+	private int qtyReorder;
+	private int qtyLow;
+	private double salesPrice;
+	
+	public InventoryItem(String sku, String name, String manufacturer, 
+			Category category, double salesPrice, int qtyTotal) {
+		
+		this.product = new Product(sku, name, manufacturer, category);
+		this.salesPrice = salesPrice;
+		this.qtyTotal = qtyTotal;
+		this.qtyLow = qtyTotal/2;
+	}
+	
+
+	public void reserveItem(int qtyReserved) {
+		if(qtyReserved < qtyLow ) {
+			this.qtyReserved = qtyReserved;
+		}else {
+			System.out.println("qtyLow threshold beeps");
+		}
+	}
+
+	public void releaseItem() {
+		qtyTotal = qtyTotal+qtyReserved;
+	}
+	
+	public void sellItem() {
+		qtyTotal = qtyTotal-qtyReserved;
+	}
+	
+	public void placeInventoryOrder() {
+		if(qtyLow < qtyTotal/2) {
+			this.qtyReorder = qtyTotal+qtyReserved - qtyTotal;
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return "%s totalQty: %s Price: %.2d".formatted(product.name(),qtyTotal,salesPrice);
+	}
+}

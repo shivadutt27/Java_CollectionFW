@@ -1,0 +1,5 @@
+package duttStore.collection.challange;
+
+public class InventoryItem {
+
+}

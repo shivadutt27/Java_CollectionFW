@@ -1,0 +1,46 @@
+package dev.duttech.card;
+
+/*
+ * This class will help to create the deck of cards.
+ * Attributes or Member variables of the class is: 
+ * 		Suits (Heart, Spade, Club, Diamond)
+ * 		Face(Ace, King, Queen, Jack, number from 2 to 10)
+ *  	Rank
+ * */
+
+enum Suit{HEART, SPADE, CLUB, DIAMOND;}
+
+public class Card {
+	
+	private Suit suit;
+	private String faceValue;
+	private int rank;
+	
+	
+	public Card(Suit suit, String faceValue) {
+		this.suit = suit;
+		if(faceValue.equalsIgnoreCase("ace")) {this.rank = 1;}
+		else if(faceValue.equalsIgnoreCase("jack")) {this.rank = 11;}
+		else if(faceValue.equalsIgnoreCase("queen")) {this.rank = 12;}
+		else if(faceValue.equalsIgnoreCase("king")) {this.rank = 13;}
+		else {
+			try {
+				this.rank = Integer.parseInt(faceValue);
+				if(rank < 2 || rank > 10) {
+					throw new IllegalArgumentException("Invalid Card Number "+ rank);
+				}
+			}catch(NumberFormatException e) {
+					e.printStackTrace();
+			}
+		}
+	}
+	
+	public String toString() {
+		if(suit.name().equalsIgnoreCase("club")) {return rank + " "+ String.valueOf((char) 9827);}
+		else if(suit.name().equalsIgnoreCase("diamond")) {return rank + " "+ String.valueOf((char) 9830);}
+		else if(suit.name().equalsIgnoreCase("heart")) 	 {return rank + " "+ String.valueOf((char) 9829);}
+		else if(suit.name().equalsIgnoreCase("spade"))   {return rank + " "+ String.valueOf((char) 9824);}
+		else return "Something is wrong";
+	}
+
+}

@@ -1,0 +1,40 @@
+package dev.duttech.card;
+
+import java.util.Arrays;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Card c1 = new Card ("spade","2");
+		System.out.println(c1);
+		
+		// card of Hearts
+		
+		Card[] deckOfCard = new Card[52];
+		
+		for(int i=1; i<14; i++) {
+			switch(i) {
+			case 1:
+				deckOfCard[i] = new Card("Heart", "Ace");
+				break;
+			case 11:
+				deckOfCard[i] = new Card("Heart","Jack");
+				break;
+			case 12:
+				deckOfCard[i] = new Card("Heart","Queen");
+				break;
+			case 13:
+				deckOfCard[i] = new Card("Heart", "King");
+				break;
+			default:
+				System.out.println(i);
+				deckOfCard[i] = new Card("Heart","i");
+			}
+		}
+		
+		System.out.println(Arrays.toString(deckOfCard));
+	}
+
+}

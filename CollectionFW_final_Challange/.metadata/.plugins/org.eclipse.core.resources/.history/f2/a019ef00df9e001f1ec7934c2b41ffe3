@@ -1,0 +1,34 @@
+package duttStore.collection.challange;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+enum Category{
+	
+	DAIRY,NON_DAIRY,COFFEE,MERCHANDISE;
+	
+	private static final Map<Category,String> mappedValue = new HashMap<>();
+	
+	public static void setValue(Category category,String value) {
+		mappedValue.put(category, value);
+	}
+	
+	public static String getValue(Category category) {
+		List<Category> categories = new ArrayList<>(List.of(category.values()));
+		if(categories.contains(category)) {
+			return mappedValue.get(category);
+		}else {
+			System.out.println("Category not present !!");
+			return null;
+		}
+	}
+	
+}
+
+record Product(String sku, String name, String manufacturer,Category category) {}
+
+public class InventoryItem {
+
+}

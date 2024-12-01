@@ -1,0 +1,15 @@
+package duttStore.collection.challange;
+
+import java.util.HashMap;
+import java.util.Map;
+
+enum Category{
+	
+	DAIRY,NON_DAIRY,COFFEE,MERCHANDISE;
+	private static final Map<Category,String> value = new HashMap<>();
+	
+}
+record Product(String sku, String name, String manufacturer)
+public class InventoryItem {
+
+}
